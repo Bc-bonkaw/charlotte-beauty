@@ -35,4 +35,8 @@ return [
         ],
     ],
 
+    'salon' => [
+        'notification_email' => env('SALON_NOTIFICATION_EMAIL'),
+    ],
+
 ];
