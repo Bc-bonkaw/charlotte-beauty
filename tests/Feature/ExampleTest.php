@@ -39,4 +39,18 @@ class ExampleTest extends TestCase
         $this->assertDatabaseHas('booking_requests', ['name' => 'Test Client']);
         Notification::assertSentOnDemand(AppointmentRequestReceived::class);
     }
+
+    public function test_an_invalid_request_shows_errors_on_the_page(): void
+    {
+        $response = $this->from('/')->followingRedirects()->post('/booking-request', [
+            'name' => '',
+            'contact' => 'client@example.com',
+            'service' => 'Cornrows',
+            'date' => now()->subDay()->toDateString(),
+        ]);
+
+        $response->assertSee('Please check the highlighted fields');
+        $response->assertSee('The name field is required.');
+        $this->assertDatabaseCount('booking_requests', 0);
+    }
 }

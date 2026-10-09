@@ -1,36 +1,366 @@
+@php
+    $booksy = 'https://booksy.com/en-us/1205345_charlotte-beauty-braids_braids-locs_119449_hayward#ba_s=seo';
+    $instagram = 'https://www.instagram.com/charlottebeauty_1/';
+    // 'real' => true marks photos of Ruffine's own work (from Instagram); false marks stock style inspiration.
+    $services = [
+        ['name' => 'Box Braids · Mid Back', 'category' => 'braids', 'price' => '$230', 'time' => '3 hr 30 min', 'notes' => ['Hair included', '$40 non-refundable deposit'], 'image' => 'box-braids.jpg', 'real' => true],
+        ['name' => 'Medium Knotless Braids', 'category' => 'braids', 'price' => '$330', 'time' => '5 hr 30 min', 'notes' => ['Mid-back length', 'Clean, lightweight finish'], 'image' => 'knotless-braids.jpg', 'real' => true],
+        ['name' => 'French Curl Braids', 'category' => 'braids', 'price' => '$380', 'time' => '6 hr 30 min', 'notes' => ['Hair included', 'Small French curls'], 'image' => 'french-curl-braids.jpg', 'real' => true],
+        ['name' => 'Knotless Boho · Medium', 'category' => 'braids', 'price' => '$300', 'time' => '5 hr 35 min', 'notes' => ['Mid-back length', 'Soft bohemian finish'], 'image' => 'boho-braids.jpg', 'real' => true],
+        ['name' => 'Senegalese Twists', 'category' => 'twists', 'price' => '$235', 'time' => '4 hr', 'notes' => ['Bra-strap length', '$40 deposit'], 'image' => 'senegalese-twists.jpg', 'real' => true],
+        ['name' => 'Fulani Braids', 'category' => 'braids', 'price' => '$285', 'time' => '4 hr 30 min', 'notes' => ['Sculpted pattern', 'Custom finish'], 'image' => 'fulani-braids.jpg', 'real' => true],
+        ['name' => 'Cornrows', 'category' => 'cornrows', 'price' => '$170', 'time' => '2 hr 30 min', 'notes' => ['Hair included', 'Classic protective style'], 'image' => 'cornrows.jpg', 'real' => true],
+        ['name' => 'Faux Locs', 'category' => 'twists', 'price' => '$355', 'time' => '5 hr 30 min', 'notes' => ['Hair included', 'Small size available'], 'image' => 'faux-locs.jpg', 'real' => false],
+        ['name' => 'Sew-In Weave', 'category' => 'weaves', 'price' => '$200', 'time' => '2 hr 30 min', 'notes' => ['Professional install', 'Protective finish'], 'image' => 'sew-in-weave.jpg', 'real' => false],
+        ['name' => 'Crochet Braids', 'category' => 'weaves', 'price' => '$175', 'time' => '30 min', 'notes' => ['Flexible styling', 'Wash add-on available'], 'image' => 'crochet-braids.jpg', 'real' => false],
+        ['name' => 'Jumbo Knotless · Waist', 'category' => 'braids', 'price' => '$250', 'time' => '2 hr 30 min', 'notes' => ['No hair included', 'Waist length'], 'image' => 'jumbo-knotless.jpg', 'real' => false],
+        ['name' => 'Boho Locs', 'category' => 'twists', 'price' => '$500', 'time' => '4 hr 30 min', 'notes' => ['Hair included', 'Soft textured finish'], 'image' => 'boho-locs.jpg', 'real' => false],
+    ];
+@endphp
 <!doctype html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="Charlotte Beauty Braids in Hayward — braids, twists, locs, cornrows and sew-ins by Ruffine Bonkaw."><title>Charlotte Beauty Braids | Hayward, CA</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet"><style>
-:root{--black:#050505;--paper:#f4f4f2;--white:#fff;--accent:#9a591d;--line:#b8b8b4;--muted:#696966}*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--paper);color:var(--black);font:14px/1.5 'Libre Franklin',sans-serif}a{color:inherit;text-decoration:none}button,input,select,textarea{font:inherit}.topbar{height:72px;background:#050505;color:white;display:flex;align-items:stretch;padding-left:24px;position:sticky;top:0;z-index:30}.logo{font:38px/1 'Playfair Display';letter-spacing:-4px;display:flex;align-items:center;width:230px}.nav{display:flex;margin-left:auto}.nav a{display:flex;align-items:center;padding:0 25px;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase}.nav a:hover,.nav a.active{background:#222}.nav .book-nav{background:white;color:var(--accent);font-size:12px;padding:0 32px}.menu{display:none;margin-left:auto;background:white;border:0;width:64px;font-size:24px}.utility{height:34px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:0 24px;background:white;font-size:10px;font-weight:700;letter-spacing:.1em}.cart{border-left:1px solid var(--line);padding-left:20px}.hero{display:grid;grid-template-columns:1.25fr .75fr;min-height:460px;border-bottom:1px solid var(--black);background:white}.hero-copy{padding:72px 6vw 58px}.kicker{font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--accent)}h1,h2,h3{font-family:'Playfair Display',serif;margin-top:0}h1{font-size:clamp(52px,7vw,94px);line-height:.93;margin:20px 0 24px;max-width:820px}.hero-copy p{font-size:16px;max-width:610px;color:#4f4f4b}.hero-actions{display:flex;margin-top:32px}.btn{display:inline-flex;align-items:center;justify-content:center;min-height:44px;border:1px solid var(--black);padding:0 20px;background:white;font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;cursor:pointer}.btn.dark{background:var(--black);color:white}.btn.accent{background:var(--accent);border-color:var(--accent);color:white}.hero-image{background:linear-gradient(#0002,#0002),url('https://images.unsplash.com/photo-1595476108010-b4d1f102b1b1?auto=format&fit=crop&w=1000&q=85') center/cover;position:relative}.hero-image span{position:absolute;right:0;bottom:22px;background:black;color:white;padding:12px 18px;font-size:11px;font-weight:700;letter-spacing:.13em;text-transform:uppercase}.section{padding:70px 24px}.section-head{display:flex;align-items:end;justify-content:space-between;gap:25px;margin-bottom:28px;border-bottom:1px solid var(--black);padding-bottom:16px}.section-head h2{font-size:38px;margin-bottom:0}.section-head p{max-width:530px;margin:0;color:var(--muted)}.filters{display:flex;gap:0;margin-bottom:20px;overflow:auto}.filter{white-space:nowrap;border:1px solid var(--black);border-right:0;background:white;padding:10px 18px;font-size:10px;letter-spacing:.12em;text-transform:uppercase;font-weight:700;cursor:pointer}.filter:last-child{border-right:1px solid}.filter.active{background:black;color:white}.services{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.service{background:white;border:1px solid #ddd;min-width:0}.service-image{height:220px;background-position:center;background-size:cover;filter:saturate(.75)}.service:nth-child(3n+1) .service-image{background-image:url('https://images.unsplash.com/photo-1595476108010-b4d1f102b1b1?auto=format&fit=crop&w=900&q=80')}.service:nth-child(3n+2) .service-image{background-image:url('https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?auto=format&fit=crop&w=900&q=80')}.service:nth-child(3n) .service-image{background-image:url('https://images.unsplash.com/photo-1562322140-8baeececf3df?auto=format&fit=crop&w=900&q=80')}.service-title{padding:15px 12px 12px;border-bottom:1px solid var(--line);min-height:76px}.service-title h3{font-size:19px;margin:0 0 4px}.service-title small{color:var(--muted)}.pricebar{display:flex;border-bottom:1px solid var(--black);height:38px}.price{background:black;color:white;padding:8px 12px;font-weight:700}.size{margin-left:auto;display:flex}.size span{border-left:1px solid var(--black);padding:8px 13px;font-size:10px;text-transform:uppercase}.size span:first-child{background:var(--accent);color:white}.details{padding:13px 18px;min-height:100px;font-size:12px}.details ul{padding-left:16px;margin:0}.details li{margin:5px 0}.service-footer{border-top:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:11px 12px;font-size:11px}.service-footer a{font-weight:700;text-transform:uppercase;letter-spacing:.08em}.more{text-align:center;margin-top:24px}.about{display:grid;grid-template-columns:1fr 1fr;background:black;color:white}.about-photo{min-height:470px;background:url('https://images.unsplash.com/photo-1522336572468-97b06e8ef143?auto=format&fit=crop&w=1200&q=80') center/cover;filter:grayscale(.3)}.about-copy{padding:70px 7vw}.about-copy h2{font-size:48px;line-height:1.05;margin:15px 0 25px}.about-copy p{color:#c8c8c5}.stats{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid #444;margin-top:35px;padding-top:25px}.stats strong{display:block;font:28px 'Playfair Display'}.stats span{font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:#aaa}.reviews{display:grid;grid-template-columns:1fr 1fr 1fr;border:1px solid var(--black)}.review{background:white;padding:28px;border-right:1px solid var(--black);min-height:210px}.review:last-child{border:0}.review .stars{letter-spacing:3px}.review blockquote{font:20px/1.45 'Playfair Display';margin:24px 0}.review small{color:var(--muted)}.booking{display:grid;grid-template-columns:.78fr 1.22fr;border:1px solid var(--black);background:white}.booking-info{background:#e9e7e2;padding:55px}.booking-info h2{font-size:45px;line-height:1.05;margin:15px 0 22px}.form{padding:45px;display:grid;grid-template-columns:1fr 1fr;gap:16px}.field{display:flex;flex-direction:column;gap:7px}.full{grid-column:1/-1}label{font-size:10px;letter-spacing:.1em;text-transform:uppercase;font-weight:700}input,select,textarea{border:1px solid var(--black);border-radius:0;padding:12px;background:white;width:100%}textarea{min-height:88px}.flash{grid-column:1/-1;padding:12px;background:#dff0df}.footer{background:black;color:white;padding:45px 24px}.footer-inner{display:flex;justify-content:space-between;align-items:end;gap:30px}.footer-logo{font:34px 'Playfair Display'}.footer small{color:#999}.hidden{display:none!important}@media(max-width:900px){.logo{width:auto}.nav{display:none;position:absolute;top:72px;left:0;right:0;background:black;flex-direction:column}.nav.open{display:flex}.nav a{min-height:52px}.menu{display:block}.hero{grid-template-columns:1fr}.hero-image{min-height:390px}.services{grid-template-columns:1fr 1fr}.about,.booking{grid-template-columns:1fr}.reviews{grid-template-columns:1fr}.review{border-right:0;border-bottom:1px solid}.section{padding:60px 18px}}@media(max-width:600px){.topbar{padding-left:15px}.logo{font-size:29px}.utility{padding:0 14px}.hero-copy{padding:55px 20px}.hero-image{min-height:320px}.services,.form{grid-template-columns:1fr}.full{grid-column:auto}.section-head{display:block}.service-image{height:260px}.about-copy,.booking-info,.form{padding:38px 22px}.footer-inner{align-items:flex-start;flex-direction:column}}
-/* Feminine palette refinement */
-:root{--black:#3d2130;--paper:#fbf1f3;--white:#fffafb;--accent:#b55772;--line:#d9bdc6;--muted:#745d66}
-body{background:var(--paper)}
-.topbar,.footer,.about{background:var(--black)}
-.nav a:hover,.nav a.active{background:#704055}
-.nav .book-nav,.menu,.utility,.hero,.filter,.service,.review,.booking,.btn{background:#fffafb}
-.menu{color:var(--black)}
-.hero-copy p{color:#6b5760}
-.hero-image{background-image:linear-gradient(#7f365333,#7f365333),url('https://images.unsplash.com/photo-1595476108010-b4d1f102b1b1?auto=format&fit=crop&w=1000&q=85')}
-.hero-image span,.price,.filter.active{background:var(--black)}
-.filter.active,.size span:first-child{background:var(--accent)}
-.service{border-color:#ead8de}
-.service-image{filter:saturate(.82) sepia(.06)}
-.booking-info{background:#f0dce2}
-.about-copy p{color:#e6d4da}.stats{border-color:#7b5664}.stats span{color:#d8bbc5}
-input,select,textarea{background:#fffafb}
-.flash{background:#f3dce5;color:#653146}
-.utility-links{display:flex;align-items:center;gap:18px}.utility-links a{transition:color .2s}.utility-links a:hover{color:var(--accent)}
-.footer-links{display:flex;gap:18px;flex-wrap:wrap;margin-top:12px}.footer-links a{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#f0d8e0}.footer-links a:hover{color:white}
-.logo{width:225px;justify-content:flex-start}.logo img{display:block;width:180px;height:66px;object-fit:contain;object-position:left center}
-.footer-brand-logo{display:block;width:190px;height:auto;margin-bottom:10px;filter:drop-shadow(0 2px 5px #0004)}
-.hero-image{background-image:linear-gradient(#7f365333,#7f365333),url('{{asset('images/salon-hero.jpg')}}')}
-.about-photo{background-image:url('{{asset('images/salon-interior.jpg')}}')}
-@media(max-width:600px){.utility-links{gap:10px}.utility-links a:nth-child(2){display:none}}
-</style></head><body>
-<header class="topbar"><a class="logo" href="#top" aria-label="Charlotte Beauty Braids home"><img src="{{asset('images/charlotte-beauty-braids-logo.png')}}" alt="Charlotte Beauty Braids"></a><button class="menu" aria-label="Open menu">☰</button><nav class="nav"><a class="active" href="#top">Homepage</a><a href="#services">Services</a><a href="#about">About us</a><a href="#reviews">Reviews</a><a href="#visit">Visit</a><a class="book-nav" href="https://booksy.com/en-us/1205345_charlotte-beauty-braids_braids-locs_119449_hayward#ba_s=seo" target="_blank" rel="noopener">Book</a></nav></header><div class="utility"><span>HAYWARD, CALIFORNIA</span><span class="utility-links"><a href="tel:+15105387311">(510) 538-7311</a><a href="https://www.instagram.com/charlottebeauty_1/?hl=en" target="_blank" rel="noopener">Instagram</a><a href="https://booksy.com/en-us/1205345_charlotte-beauty-braids_braids-locs_119449_hayward#ba_s=seo" target="_blank" rel="noopener">Booksy</a><span class="cart">5.0 ★ &nbsp; 23 REVIEWS</span></span></div>
-<main id="top"><section class="hero"><div class="hero-copy"><span class="kicker">Charlotte Beauty Braids</span><h1>Protective styles.<br>Polished finish.</h1><p>Custom braids, twists, locs, cornrows and sew-ins by Ruffine Bonkaw. Designed with care and finished for confidence.</p><div class="hero-actions"><a class="btn dark" href="#services">Explore services</a><a class="btn" href="#booking">Request appointment</a></div></div><div class="hero-image"><span>Hair included on select styles</span></div></section>
-@php($services=[['Box Braids · Mid Back','braids','$230','3 hr 30 min','Hair included','$40 non-refundable deposit','box-braids.jpg'],['Medium Knotless Braids','braids','$330','5 hr 30 min','Mid-back length','Clean, lightweight finish','knotless-braids.jpg'],['French Curl Braids','braids','$380','6 hr 30 min','Hair included','Small French curls','french-curl-braids.jpg'],['Knotless Boho · Medium','braids','$300','5 hr 35 min','Mid-back length','Soft bohemian finish','boho-braids.jpg'],['Senegalese Twists','twists','$235','4 hr','Bra-strap length','$40 deposit','senegalese-twists.jpg'],['Faux Locs','twists','$355','5 hr 30 min','Hair included','Small size available','faux-locs.jpg'],['Fulani Braids','braids','$285','4 hr 30 min','Sculpted pattern','Custom finish','fulani-braids.jpg'],['Cornrows','cornrows','$170','2 hr 30 min','Hair included','Classic protective style','cornrows.jpg'],['Sew-In Weave','weaves','$200','2 hr 30 min','Professional install','Protective finish','sew-in-weave.jpg'],['Crochet Braids','weaves','$175','30 min','Flexible styling','Wash add-on available','crochet-braids.jpg'],['Jumbo Knotless · Waist','braids','$250','2 hr 30 min','No hair included','Waist length','jumbo-knotless.jpg'],['Boho Locs','twists','$500','4 hr 30 min','Hair included','Soft textured finish','boho-locs.jpg']])
-<section class="section" id="services"><div class="section-head"><div><span class="kicker">Service menu</span><h2>Choose your style</h2></div><p>Prices shown are starting points. Final timing and pricing can change with braid size, length, hair choice, and preparation.</p></div><div class="filters"><button class="filter active" data-filter="all">All</button><button class="filter" data-filter="braids">Braids</button><button class="filter" data-filter="twists">Twists & locs</button><button class="filter" data-filter="cornrows">Cornrows</button><button class="filter" data-filter="weaves">Weaves & care</button></div><div class="services">@foreach($services as $i=>$s)<article class="service {{$i>5?'extra hidden':''}}" data-category="{{$s[1]}}"><div class="service-title"><h3>{{$s[0]}}</h3><small>Charlotte Beauty Braids</small></div><div class="service-image" role="img" aria-label="{{$s[0]}} inspiration on a Black model" style="background-image:url('{{asset('images/services/'.$s[6])}}')"></div><div class="pricebar"><span class="price">from {{$s[2]}}</span><div class="size"><span>Book</span><span>{{$s[3]}}</span></div></div><div class="details"><ul><li>{{$s[4]}}</li><li>{{$s[5]}}</li><li>Professional consultation</li></ul></div><div class="service-footer"><span>Styled by Ruffine</span><a href="#booking" data-service="{{$s[0]}}">Select →</a></div></article>@endforeach</div><div class="more"><button class="btn" id="showMore">View all services</button></div></section>
-<section class="about" id="about"><div class="about-photo" role="img" aria-label="Elegant salon interior"></div><div class="about-copy"><span class="kicker">About the studio</span><h2>Braiding is care, craft, and confidence.</h2><p>Charlotte Beauty Braids is a welcoming Hayward studio known for fast, polished work and a friendly atmosphere. Ruffine brings experience and an eye for detail to every appointment.</p><div class="stats"><div><strong>5.0</strong><span>Rating</span></div><div><strong>23</strong><span>Reviews</span></div><div><strong>40+</strong><span>Styles</span></div></div></div></section>
-<section class="section" id="reviews"><div class="section-head"><div><span class="kicker">Client notes</span><h2>They leave glowing</h2></div></div><div class="reviews"><article class="review"><div class="stars">★★★★★</div><blockquote>“My braids came out great. And she was done in the 3 hours!”</blockquote><small>Brittany · Box Braids</small></article><article class="review"><div class="stars">★★★★★</div><blockquote>“The best experience ever! Love my hair to the fullest!”</blockquote><small>Maurisha · Bohemian Braids</small></article><article class="review"><div class="stars">★★★★★</div><blockquote>“Quick, proficient, kind and very easy to work with.”</blockquote><small>Teresa · Box Braids</small></article></div></section>
-<section class="section" id="booking"><div class="booking"><div class="booking-info"><span class="kicker">Book your visit</span><h2>Request an appointment.</h2><p>Tell us your preferred style and date. We’ll follow up to confirm availability and deposit details.</p><p id="visit"><strong>762 A St<br>Hayward, CA 94541</strong></p><a href="https://www.google.com/maps/search/?api=1&query=762+A+St+Hayward+CA+94541" target="_blank">Get directions →</a></div><form class="form" method="post" action="{{route('booking.store')}}">@csrf @if(session('success'))<div class="flash">{{session('success')}}</div>@endif<div class="field"><label for="name">Your name</label><input id="name" name="name" required value="{{old('name')}}"></div><div class="field"><label for="contact">Phone or email</label><input id="contact" name="contact" required value="{{old('contact')}}"></div><div class="field"><label for="service">Style</label><select id="service" name="service" required><option value="">Choose a service</option>@foreach($services as $s)<option @selected(old('service')===$s[0])>{{$s[0]}}</option>@endforeach<option>Something else</option></select></div><div class="field"><label for="date">Preferred date</label><input id="date" type="date" name="date" min="{{now()->format('Y-m-d')}}" required value="{{old('date')}}"></div><div class="field full"><label for="notes">Length, color & notes</label><textarea id="notes" name="notes">{{old('notes')}}</textarea></div><div class="field full"><button class="btn dark" type="submit">Send appointment request</button><small>A request does not confirm an appointment. A $40 non-refundable deposit may be required.</small></div></form></div></section></main>
-<footer class="footer"><div class="footer-inner"><div><img class="footer-brand-logo" src="{{asset('images/charlotte-beauty-braids-logo.png')}}" alt="Charlotte Beauty Braids logo"><small>Protective styles in Hayward, California</small><div class="footer-links"><a href="tel:+15105387311">Call (510) 538-7311</a><a href="https://www.instagram.com/charlottebeauty_1/?hl=en" target="_blank" rel="noopener">Instagram</a><a href="https://booksy.com/en-us/1205345_charlotte-beauty-braids_braids-locs_119449_hayward#ba_s=seo" target="_blank" rel="noopener">Book on Booksy</a></div></div><div>762 A St, Hayward, CA 94541</div><small>© {{date('Y')}} Charlotte Beauty Braids</small></div></footer><script>const m=document.querySelector('.menu'),n=document.querySelector('.nav');m.onclick=()=>n.classList.toggle('open');document.querySelectorAll('.filter').forEach(b=>b.onclick=()=>{document.querySelectorAll('.filter').forEach(x=>x.classList.remove('active'));b.classList.add('active');document.querySelectorAll('.service').forEach(c=>c.classList.toggle('hidden',b.dataset.filter!=='all'&&c.dataset.category!==b.dataset.filter));document.querySelector('#showMore').classList.add('hidden')});document.querySelector('#showMore').onclick=e=>{document.querySelectorAll('.extra').forEach(c=>c.classList.remove('hidden'));e.target.classList.add('hidden')};document.querySelectorAll('[data-service]').forEach(a=>a.onclick=()=>document.querySelector('#service').value=a.dataset.service)</script></body></html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Charlotte Beauty Braids | Hayward, CA</title>
+<meta name="description" content="Charlotte Beauty Braids in Hayward — braids, twists, locs, cornrows and sew-ins by Ruffine Bonkaw.">
+<meta name="theme-color" content="#3d2130">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Charlotte Beauty Braids | Hayward, CA">
+<meta property="og:description" content="Protective styles with a polished finish — braids, twists, locs and cornrows by Ruffine Bonkaw.">
+<meta property="og:image" content="{{ asset('images/hero.jpg') }}">
+<meta property="og:url" content="{{ url('/') }}">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="{{ asset('favicon.ico') }}" sizes="any">
+<link rel="apple-touch-icon" href="{{ asset('apple-touch-icon.png') }}">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+    --plum:#3d2130; --plum-2:#5a3245; --paper:#fbf1f3; --card:#fffafb; --blush:#f0dce2;
+    --rose:#b55772; --rose-dark:#9b4560; --gold:#c49a52; --line:#e6cfd6; --ink:#3d2130; --muted:#745d66;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:72px}
+body{margin:0;background:var(--paper);color:var(--ink);font:15px/1.55 'Libre Franklin',sans-serif}
+a{color:inherit;text-decoration:none}
+img{max-width:100%;display:block}
+button,input,select,textarea{font:inherit}
+h1,h2,h3{font-family:'Playfair Display',serif;margin-top:0}
+.kicker{font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--rose)}
+
+/* Header */
+.topbar{height:72px;background:var(--plum);color:#fff;display:flex;align-items:center;padding:0 0 0 24px;position:sticky;top:0;z-index:30}
+.logo img{height:56px;width:auto}
+.nav{display:flex;margin-left:auto;align-self:stretch}
+.nav a{display:flex;align-items:center;padding:0 22px;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;transition:background .2s}
+.nav a:hover{background:var(--plum-2)}
+.nav .book-nav{background:var(--rose);color:#fff;padding:0 32px}
+.nav .book-nav:hover{background:var(--rose-dark)}
+.menu{display:none;margin-left:auto;align-self:stretch;background:transparent;color:#fff;border:0;width:64px;font-size:24px;cursor:pointer}
+.utility{min-height:34px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;gap:16px;padding:0 24px;background:var(--card);font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase}
+.utility-links{display:flex;align-items:center;gap:18px}
+.utility-links a:hover{color:var(--rose)}
+.rating{border-left:1px solid var(--line);padding-left:18px;color:var(--rose)}
+
+/* Hero */
+.hero{display:grid;grid-template-columns:1.15fr .85fr;background:var(--card);border-bottom:1px solid var(--line)}
+.hero-copy{padding:80px 6vw 64px;align-self:center}
+h1{font-size:clamp(46px,6.4vw,90px);line-height:.95;margin:18px 0 24px}
+h1 em{font-style:normal;color:var(--rose)}
+.hero-copy p{font-size:17px;max-width:560px;color:var(--muted)}
+.hero-actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:32px}
+.hero-image{position:relative;background:linear-gradient(180deg,var(--paper),var(--blush));min-height:520px;overflow:hidden}
+.hero-image img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center bottom}
+.hero-image figcaption{position:absolute;left:0;bottom:24px;background:var(--plum);color:#fff;padding:10px 18px;font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase}
+
+/* Buttons */
+.btn{display:inline-flex;align-items:center;justify-content:center;min-height:46px;border:1px solid var(--plum);padding:0 22px;background:var(--card);color:var(--plum);font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;transition:background .2s,color .2s}
+.btn:hover{background:var(--plum);color:#fff}
+.btn.dark{background:var(--plum);color:#fff}
+.btn.dark:hover{background:var(--plum-2)}
+
+/* Sections */
+.section{padding:72px 24px}
+.section-head{display:flex;align-items:end;justify-content:space-between;gap:24px;margin-bottom:28px;border-bottom:1px solid var(--plum);padding-bottom:16px}
+.section-head h2{font-size:clamp(32px,4vw,42px);margin:6px 0 0}
+.section-head p{max-width:520px;margin:0;color:var(--muted)}
+
+/* Services */
+.filters{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:22px}
+.filter{border:1px solid var(--line);border-radius:999px;background:var(--card);padding:9px 18px;font-size:10px;letter-spacing:.12em;text-transform:uppercase;font-weight:700;cursor:pointer;color:var(--plum)}
+.filter:hover{border-color:var(--rose)}
+.filter.active{background:var(--rose);border-color:var(--rose);color:#fff}
+.services{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.service{background:var(--card);border:1px solid var(--line);display:flex;flex-direction:column;transition:box-shadow .2s,transform .2s}
+.service:hover{box-shadow:0 14px 30px -18px #3d213066;transform:translateY(-2px)}
+.service-photo{position:relative;aspect-ratio:4/5;background:linear-gradient(180deg,var(--paper),var(--blush));overflow:hidden}
+.service-photo img{width:100%;height:100%;object-fit:cover;object-position:center bottom}
+.tag{position:absolute;top:12px;left:12px;background:#fffafbe6;color:var(--plum);padding:5px 10px;font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase}
+.tag.real{background:var(--plum);color:#fff}
+.service-body{padding:18px 18px 0;flex:1}
+.service-body h3{font-size:21px;margin:0 0 8px}
+.meta{display:flex;align-items:baseline;gap:10px;margin-bottom:10px}
+.price{font-weight:700;font-size:17px}
+.time{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.service-body ul{margin:0;padding-left:16px;color:var(--muted);font-size:13px}
+.service-body li{margin:3px 0}
+.service-book{display:flex;justify-content:space-between;align-items:center;margin-top:16px;padding:14px 18px;border-top:1px solid var(--line);font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--rose)}
+.service-book:hover{background:var(--rose);color:#fff}
+.more{text-align:center;margin-top:28px}
+.credit-note{text-align:center;color:var(--muted);font-size:12px;margin-top:14px}
+
+/* About */
+.about{display:grid;grid-template-columns:1fr 1fr;background:var(--plum);color:#fff}
+.about-photo{position:relative;background:linear-gradient(180deg,var(--paper),var(--blush));min-height:520px;overflow:hidden}
+.about-photo img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center bottom}
+.about-copy{padding:72px 7vw;align-self:center}
+.about-copy h2{font-size:clamp(34px,4vw,48px);line-height:1.05;margin:14px 0 24px}
+.about-copy p{color:#e6d4da}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid #7b5664;margin-top:34px;padding-top:24px}
+.stats strong{display:block;font:30px 'Playfair Display',serif;color:#fff}
+.stats span{font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:#d8bbc5}
+.about-copy .btn{margin-top:30px;background:transparent;color:#fff;border-color:#fff}
+.about-copy .btn:hover{background:#fff;color:var(--plum)}
+
+/* Reviews */
+.reviews{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.review{background:var(--card);border:1px solid var(--line);padding:30px}
+.stars{color:var(--gold);letter-spacing:3px;font-size:16px}
+.review blockquote{font:20px/1.45 'Playfair Display',serif;margin:18px 0 22px}
+.review small{color:var(--muted)}
+
+/* Booking */
+.booking{display:grid;grid-template-columns:.8fr 1.2fr;border:1px solid var(--line);background:var(--card)}
+.booking-info{background:var(--blush);padding:52px}
+.booking-info h2{font-size:clamp(34px,4vw,44px);line-height:1.05;margin:14px 0 20px}
+.booking-info .btn{margin-top:8px}
+.address{margin:26px 0 6px;font-weight:700}
+.directions{color:var(--rose);font-weight:600}
+.form{padding:44px;display:grid;grid-template-columns:1fr 1fr;gap:16px;align-content:start}
+.field{display:flex;flex-direction:column;gap:7px}
+.full{grid-column:1/-1}
+label{font-size:10px;letter-spacing:.1em;text-transform:uppercase;font-weight:700}
+input,select,textarea{border:1px solid #cdb3bc;border-radius:0;padding:12px;background:#fff;width:100%;color:var(--ink)}
+input:focus,select:focus,textarea:focus{outline:2px solid var(--rose);outline-offset:-1px;border-color:var(--rose)}
+textarea{min-height:96px;resize:vertical}
+.flash{grid-column:1/-1;padding:12px 14px;background:#f3dce5;color:#653146;font-weight:600}
+.flash.error{background:#fde8e8;color:#8a1f2b}
+.field-error{color:#8a1f2b;font-size:12px}
+.form small{color:var(--muted)}
+
+/* Footer */
+.footer{background:var(--plum);color:#fff;padding:48px 24px 28px}
+.footer-inner{display:grid;grid-template-columns:auto 1fr auto;gap:40px;align-items:center}
+.footer-logo{width:140px}
+.footer-links{display:flex;gap:20px;flex-wrap:wrap}
+.footer-links a{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#f0d8e0}
+.footer-links a:hover{color:#fff}
+.footer address{font-style:normal;color:#e6d4da;text-align:right}
+.footer-bottom{border-top:1px solid #5d3a4b;margin-top:32px;padding-top:18px;font-size:12px;color:#c9aab5}
+.hidden{display:none!important}
+
+@media(max-width:900px){
+    .nav{display:none;position:absolute;top:72px;left:0;right:0;background:var(--plum);flex-direction:column}
+    .nav.open{display:flex}
+    .nav a{min-height:52px;padding:0 24px}
+    .menu{display:block}
+    .hero,.about,.booking{grid-template-columns:1fr}
+    .hero-image{min-height:460px}
+    .about-photo{min-height:420px}
+    .services,.reviews{grid-template-columns:1fr 1fr}
+    .section{padding:60px 18px}
+    .footer-inner{grid-template-columns:1fr}
+    .footer address{text-align:left}
+}
+@media(max-width:600px){
+    .topbar{padding-left:14px}
+    .logo img{height:50px}
+    .utility{padding:8px 14px;justify-content:center}
+    .utility .city,.utility-links .ig{display:none}
+    .hero-copy{padding:52px 20px 44px}
+    .hero-image{min-height:420px}
+    .services,.reviews,.form{grid-template-columns:1fr}
+    .section-head{display:block}
+    .section-head p{margin-top:10px}
+    .about-copy,.booking-info,.form{padding:36px 22px}
+}
+</style>
+</head>
+<body>
+<header class="topbar">
+    <a class="logo" href="#top" aria-label="Charlotte Beauty Braids home"><img src="{{ asset('images/logo-light.png') }}" alt="Charlotte Beauty Braids" width="57" height="56"></a>
+    <button class="menu" aria-label="Open menu" aria-expanded="false" aria-controls="site-nav">☰</button>
+    <nav class="nav" id="site-nav">
+        <a href="#top">Home</a>
+        <a href="#services">Services</a>
+        <a href="#about">About</a>
+        <a href="#reviews">Reviews</a>
+        <a href="#visit">Visit</a>
+        <a class="book-nav" href="{{ $booksy }}" target="_blank" rel="noopener">Book now</a>
+    </nav>
+</header>
+<div class="utility">
+    <span class="city">Hayward, California</span>
+    <span class="utility-links">
+        <a href="tel:+15105387311">(510) 538-7311</a>
+        <a class="ig" href="{{ $instagram }}" target="_blank" rel="noopener">Instagram</a>
+        <span class="rating">5.0 ★ · 23 reviews</span>
+    </span>
+</div>
+
+<main id="top">
+<section class="hero">
+    <div class="hero-copy">
+        <span class="kicker">Charlotte Beauty Braids · Hayward</span>
+        <h1>Protective styles. <em>Polished finish.</em></h1>
+        <p>Custom braids, twists, locs and cornrows by Ruffine Bonkaw. Designed with care and finished for confidence.</p>
+        <div class="hero-actions">
+            <a class="btn dark" href="{{ $booksy }}" target="_blank" rel="noopener">Book on Booksy</a>
+            <a class="btn" href="#services">See styles &amp; prices</a>
+        </div>
+    </div>
+    <figure class="hero-image" style="margin:0">
+        <img src="{{ asset('images/hero.jpg') }}" alt="Long blonde curly twists by Ruffine" fetchpriority="high">
+        <figcaption>Styled by Ruffine</figcaption>
+    </figure>
+</section>
+
+<section class="section" id="services">
+    <div class="section-head">
+        <div><span class="kicker">Service menu</span><h2>Choose your style</h2></div>
+        <p>Prices are starting points. Final time and price depend on braid size, length, hair choice and prep.</p>
+    </div>
+    <div class="filters">
+        <button class="filter active" data-filter="all">All</button>
+        <button class="filter" data-filter="braids">Braids</button>
+        <button class="filter" data-filter="twists">Twists &amp; locs</button>
+        <button class="filter" data-filter="cornrows">Cornrows</button>
+        <button class="filter" data-filter="weaves">Weaves &amp; crochet</button>
+    </div>
+    <div class="services">
+        @foreach ($services as $i => $s)
+            <article class="service {{ $i > 5 ? 'extra hidden' : '' }}" data-category="{{ $s['category'] }}">
+                <div class="service-photo">
+                    <img src="{{ asset('images/services/'.$s['image']) }}" alt="{{ $s['name'] }}{{ $s['real'] ? ' styled by Ruffine' : ' style inspiration' }}" loading="lazy" width="900" height="1125">
+                    <span class="tag {{ $s['real'] ? 'real' : '' }}">{{ $s['real'] ? "Ruffine's work" : 'Style inspiration' }}</span>
+                </div>
+                <div class="service-body">
+                    <h3>{{ $s['name'] }}</h3>
+                    <div class="meta"><span class="price">from {{ $s['price'] }}</span><span class="time">{{ $s['time'] }}</span></div>
+                    <ul>@foreach ($s['notes'] as $note)<li>{{ $note }}</li>@endforeach</ul>
+                </div>
+                <a class="service-book" href="#booking" data-service="{{ $s['name'] }}">Request this style <span aria-hidden="true">→</span></a>
+            </article>
+        @endforeach
+    </div>
+    <div class="more"><button class="btn" id="showMore">View all services</button></div>
+    <p class="credit-note">“Ruffine's work” photos are real clients from <a href="{{ $instagram }}" target="_blank" rel="noopener">@charlottebeauty_1</a>. “Style inspiration” photos are stock references.</p>
+</section>
+
+<section class="about" id="about">
+    <div class="about-photo"><img src="{{ asset('images/about.jpg') }}" alt="Blonde ombré knotless braids by Ruffine" loading="lazy"></div>
+    <div class="about-copy">
+        <span class="kicker">About the studio</span>
+        <h2>Braiding is care, craft, and confidence.</h2>
+        <p>Charlotte Beauty Braids is a welcoming Hayward studio known for fast, polished work and a friendly atmosphere. Ruffine brings years of experience and an eye for detail to every appointment.</p>
+        <div class="stats">
+            <div><strong>5.0</strong><span>Rating</span></div>
+            <div><strong>23</strong><span>Reviews</span></div>
+            <div><strong>40+</strong><span>Styles</span></div>
+        </div>
+        <a class="btn" href="{{ $instagram }}" target="_blank" rel="noopener">See more on Instagram</a>
+    </div>
+</section>
+
+<section class="section" id="reviews">
+    <div class="section-head"><div><span class="kicker">Client notes</span><h2>They leave glowing</h2></div></div>
+    <div class="reviews">
+        <article class="review"><div class="stars" aria-label="5 stars">★★★★★</div><blockquote>“My braids came out great. And she was done in the 3 hours!”</blockquote><small>Brittany · Box Braids</small></article>
+        <article class="review"><div class="stars" aria-label="5 stars">★★★★★</div><blockquote>“The best experience ever! Love my hair to the fullest!”</blockquote><small>Maurisha · Bohemian Braids</small></article>
+        <article class="review"><div class="stars" aria-label="5 stars">★★★★★</div><blockquote>“Quick, proficient, kind and very easy to work with.”</blockquote><small>Teresa · Box Braids</small></article>
+    </div>
+</section>
+
+<section class="section" id="booking">
+    <div class="booking">
+        <div class="booking-info" id="visit">
+            <span class="kicker">Book your visit</span>
+            <h2>Request an appointment.</h2>
+            <p>The fastest way to book is Booksy. Prefer to ask first? Send a request and we’ll follow up to confirm availability and deposit details.</p>
+            <a class="btn dark" href="{{ $booksy }}" target="_blank" rel="noopener">Book on Booksy</a>
+            <p class="address">762 A St<br>Hayward, CA 94541</p>
+            <a class="directions" href="https://www.google.com/maps/search/?api=1&query=762+A+St+Hayward+CA+94541" target="_blank" rel="noopener">Get directions →</a>
+        </div>
+        <form class="form" method="post" action="{{ route('booking.store') }}">
+            @csrf
+            @if (session('success'))<div class="flash" role="status">{{ session('success') }}</div>@endif
+            @if ($errors->any())<div class="flash error" role="alert">Please check the highlighted fields and try again.</div>@endif
+            <div class="field">
+                <label for="name">Your name</label>
+                <input id="name" name="name" required maxlength="100" autocomplete="name" value="{{ old('name') }}">
+                @error('name')<span class="field-error">{{ $message }}</span>@enderror
+            </div>
+            <div class="field">
+                <label for="contact">Phone or email</label>
+                <input id="contact" name="contact" required maxlength="150" autocomplete="tel" value="{{ old('contact') }}">
+                @error('contact')<span class="field-error">{{ $message }}</span>@enderror
+            </div>
+            <div class="field">
+                <label for="service">Style</label>
+                <select id="service" name="service" required>
+                    <option value="">Choose a service</option>
+                    @foreach ($services as $s)<option @selected(old('service') === $s['name'])>{{ $s['name'] }}</option>@endforeach
+                    <option @selected(old('service') === 'Something else')>Something else</option>
+                </select>
+                @error('service')<span class="field-error">{{ $message }}</span>@enderror
+            </div>
+            <div class="field">
+                <label for="date">Preferred date</label>
+                <input id="date" type="date" name="date" min="{{ now()->format('Y-m-d') }}" required value="{{ old('date') }}">
+                @error('date')<span class="field-error">{{ $message }}</span>@enderror
+            </div>
+            <div class="field full">
+                <label for="notes">Length, color &amp; notes</label>
+                <textarea id="notes" name="notes" maxlength="1000">{{ old('notes') }}</textarea>
+                @error('notes')<span class="field-error">{{ $message }}</span>@enderror
+            </div>
+            <div class="field full">
+                <button class="btn dark" type="submit">Send appointment request</button>
+                <small>A request does not confirm an appointment. A $40 non-refundable deposit may be required.</small>
+            </div>
+        </form>
+    </div>
+</section>
+</main>
+
+<footer class="footer">
+    <div class="footer-inner">
+        <img class="footer-logo" src="{{ asset('images/logo-light.png') }}" alt="Charlotte Beauty Braids" loading="lazy">
+        <nav class="footer-links" aria-label="Contact">
+            <a href="tel:+15105387311">Call (510) 538-7311</a>
+            <a href="{{ $instagram }}" target="_blank" rel="noopener">Instagram</a>
+            <a href="{{ $booksy }}" target="_blank" rel="noopener">Book on Booksy</a>
+        </nav>
+        <address>762 A St<br>Hayward, CA 94541</address>
+    </div>
+    <div class="footer-bottom">© {{ date('Y') }} Charlotte Beauty Braids · Protective styles in Hayward, California</div>
+</footer>
+
+<script>
+const menu = document.querySelector('.menu'), nav = document.querySelector('.nav');
+menu.onclick = () => menu.setAttribute('aria-expanded', nav.classList.toggle('open'));
+nav.querySelectorAll('a').forEach(a => a.addEventListener('click', () => { nav.classList.remove('open'); menu.setAttribute('aria-expanded', 'false'); }));
+
+const filters = document.querySelectorAll('.filter'), cards = document.querySelectorAll('.service'), more = document.querySelector('#showMore');
+filters.forEach(b => b.onclick = () => {
+    filters.forEach(x => x.classList.toggle('active', x === b));
+    cards.forEach(c => c.classList.toggle('hidden', b.dataset.filter !== 'all' && c.dataset.category !== b.dataset.filter));
+    more.classList.add('hidden');
+});
+more.onclick = () => { document.querySelectorAll('.extra').forEach(c => c.classList.remove('hidden')); more.classList.add('hidden'); };
+document.querySelectorAll('[data-service]').forEach(a => a.onclick = () => document.querySelector('#service').value = a.dataset.service);
+</script>
+</body>
+</html>
