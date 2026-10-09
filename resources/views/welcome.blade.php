@@ -1,20 +1,20 @@
 @php
     $booksy = 'https://booksy.com/en-us/1205345_charlotte-beauty-braids_braids-locs_119449_hayward#ba_s=seo';
     $instagram = 'https://www.instagram.com/charlottebeauty_1/';
-    // 'real' => true marks photos of Ruffine's own work (from Instagram); false marks stock style inspiration.
+    // 'image' => null shows the branded monogram until Ruffine has a photo of that style.
     $services = [
-        ['name' => 'Box Braids · Mid Back', 'category' => 'braids', 'price' => '$230', 'time' => '3 hr 30 min', 'notes' => ['Hair included', '$40 non-refundable deposit'], 'image' => 'box-braids.jpg', 'real' => true],
-        ['name' => 'Medium Knotless Braids', 'category' => 'braids', 'price' => '$330', 'time' => '5 hr 30 min', 'notes' => ['Mid-back length', 'Clean, lightweight finish'], 'image' => 'knotless-braids.jpg', 'real' => true],
-        ['name' => 'French Curl Braids', 'category' => 'braids', 'price' => '$380', 'time' => '6 hr 30 min', 'notes' => ['Hair included', 'Small French curls'], 'image' => 'french-curl-braids.jpg', 'real' => true],
-        ['name' => 'Knotless Boho · Medium', 'category' => 'braids', 'price' => '$300', 'time' => '5 hr 35 min', 'notes' => ['Mid-back length', 'Soft bohemian finish'], 'image' => 'boho-braids.jpg', 'real' => true],
-        ['name' => 'Senegalese Twists', 'category' => 'twists', 'price' => '$235', 'time' => '4 hr', 'notes' => ['Bra-strap length', '$40 deposit'], 'image' => 'senegalese-twists.jpg', 'real' => true],
-        ['name' => 'Fulani Braids', 'category' => 'braids', 'price' => '$285', 'time' => '4 hr 30 min', 'notes' => ['Sculpted pattern', 'Custom finish'], 'image' => 'fulani-braids.jpg', 'real' => true],
-        ['name' => 'Cornrows', 'category' => 'cornrows', 'price' => '$170', 'time' => '2 hr 30 min', 'notes' => ['Hair included', 'Classic protective style'], 'image' => 'cornrows.jpg', 'real' => true],
-        ['name' => 'Faux Locs', 'category' => 'twists', 'price' => '$355', 'time' => '5 hr 30 min', 'notes' => ['Hair included', 'Small size available'], 'image' => 'faux-locs.jpg', 'real' => false],
-        ['name' => 'Sew-In Weave', 'category' => 'weaves', 'price' => '$200', 'time' => '2 hr 30 min', 'notes' => ['Professional install', 'Protective finish'], 'image' => 'sew-in-weave.jpg', 'real' => false],
-        ['name' => 'Crochet Braids', 'category' => 'weaves', 'price' => '$175', 'time' => '30 min', 'notes' => ['Flexible styling', 'Wash add-on available'], 'image' => 'crochet-braids.jpg', 'real' => false],
-        ['name' => 'Jumbo Knotless · Waist', 'category' => 'braids', 'price' => '$250', 'time' => '2 hr 30 min', 'notes' => ['No hair included', 'Waist length'], 'image' => 'jumbo-knotless.jpg', 'real' => false],
-        ['name' => 'Boho Locs', 'category' => 'twists', 'price' => '$500', 'time' => '4 hr 30 min', 'notes' => ['Hair included', 'Soft textured finish'], 'image' => 'boho-locs.jpg', 'real' => false],
+        ['name' => 'Box Braids · Mid Back', 'category' => 'braids', 'price' => '$230', 'time' => '3 hr 30 min', 'notes' => ['Hair included', '$40 non-refundable deposit'], 'image' => 'box-braids.jpg'],
+        ['name' => 'Medium Knotless Braids', 'category' => 'braids', 'price' => '$330', 'time' => '5 hr 30 min', 'notes' => ['Mid-back length', 'Clean, lightweight finish'], 'image' => 'knotless-braids.jpg'],
+        ['name' => 'French Curl Braids', 'category' => 'braids', 'price' => '$380', 'time' => '6 hr 30 min', 'notes' => ['Hair included', 'Small French curls'], 'image' => 'french-curl-braids.jpg'],
+        ['name' => 'Knotless Boho · Medium', 'category' => 'braids', 'price' => '$300', 'time' => '5 hr 35 min', 'notes' => ['Mid-back length', 'Soft bohemian finish'], 'image' => 'boho-braids.jpg'],
+        ['name' => 'Senegalese Twists', 'category' => 'twists', 'price' => '$235', 'time' => '4 hr', 'notes' => ['Bra-strap length', '$40 deposit'], 'image' => 'senegalese-twists.jpg'],
+        ['name' => 'Fulani Braids', 'category' => 'braids', 'price' => '$285', 'time' => '4 hr 30 min', 'notes' => ['Sculpted pattern', 'Custom finish'], 'image' => 'fulani-braids.jpg'],
+        ['name' => 'Cornrows', 'category' => 'cornrows', 'price' => '$170', 'time' => '2 hr 30 min', 'notes' => ['Hair included', 'Classic protective style'], 'image' => 'cornrows.jpg'],
+        ['name' => 'Faux Locs', 'category' => 'twists', 'price' => '$355', 'time' => '5 hr 30 min', 'notes' => ['Hair included', 'Small size available'], 'image' => null],
+        ['name' => 'Sew-In Weave', 'category' => 'weaves', 'price' => '$200', 'time' => '2 hr 30 min', 'notes' => ['Professional install', 'Protective finish'], 'image' => null],
+        ['name' => 'Crochet Braids', 'category' => 'weaves', 'price' => '$175', 'time' => '30 min', 'notes' => ['Flexible styling', 'Wash add-on available'], 'image' => null],
+        ['name' => 'Jumbo Knotless · Waist', 'category' => 'braids', 'price' => '$250', 'time' => '2 hr 30 min', 'notes' => ['No hair included', 'Waist length'], 'image' => null],
+        ['name' => 'Boho Locs', 'category' => 'twists', 'price' => '$500', 'time' => '4 hr 30 min', 'notes' => ['Hair included', 'Soft textured finish'], 'image' => null],
     ];
 @endphp
 <!doctype html>
@@ -97,8 +97,10 @@ h1 em{font-style:normal;color:var(--rose)}
 .service:hover{box-shadow:0 14px 30px -18px #3d213066;transform:translateY(-2px)}
 .service-photo{position:relative;aspect-ratio:4/5;background:linear-gradient(180deg,var(--paper),var(--blush));overflow:hidden}
 .service-photo img{width:100%;height:100%;object-fit:cover;object-position:center bottom}
-.tag{position:absolute;top:12px;left:12px;background:#fffafbe6;color:var(--plum);padding:5px 10px;font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase}
-.tag.real{background:var(--plum);color:#fff}
+.service-photo.placeholder{display:flex;align-items:center;justify-content:center}
+.service-photo.placeholder img{width:46%;height:auto;opacity:.55}
+.tag{position:absolute;top:12px;left:12px;background:var(--plum);color:#fff;padding:5px 10px;font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase}
+.placeholder .tag{background:#fffafbe6;color:var(--plum)}
 .service-body{padding:18px 18px 0;flex:1}
 .service-body h3{font-size:21px;margin:0 0 8px}
 .meta{display:flex;align-items:baseline;gap:10px;margin-bottom:10px}
@@ -242,10 +244,17 @@ textarea{min-height:96px;resize:vertical}
     <div class="services">
         @foreach ($services as $i => $s)
             <article class="service {{ $i > 5 ? 'extra hidden' : '' }}" data-category="{{ $s['category'] }}">
-                <div class="service-photo">
-                    <img src="{{ asset('images/services/'.$s['image']) }}" alt="{{ $s['name'] }}{{ $s['real'] ? ' styled by Ruffine' : ' style inspiration' }}" loading="lazy" width="900" height="1125">
-                    <span class="tag {{ $s['real'] ? 'real' : '' }}">{{ $s['real'] ? "Ruffine's work" : 'Style inspiration' }}</span>
-                </div>
+                @if ($s['image'])
+                    <div class="service-photo">
+                        <img src="{{ asset('images/services/'.$s['image']) }}" alt="{{ $s['name'] }} styled by Ruffine" loading="lazy" width="900" height="1125">
+                        <span class="tag">Ruffine's work</span>
+                    </div>
+                @else
+                    <div class="service-photo placeholder">
+                        <img src="{{ asset('images/logo.png') }}" alt="" loading="lazy">
+                        <span class="tag">Photos coming soon</span>
+                    </div>
+                @endif
                 <div class="service-body">
                     <h3>{{ $s['name'] }}</h3>
                     <div class="meta"><span class="price">from {{ $s['price'] }}</span><span class="time">{{ $s['time'] }}</span></div>
@@ -256,7 +265,7 @@ textarea{min-height:96px;resize:vertical}
         @endforeach
     </div>
     <div class="more"><button class="btn" id="showMore">View all services</button></div>
-    <p class="credit-note">“Ruffine's work” photos are real clients from <a href="{{ $instagram }}" target="_blank" rel="noopener">@charlottebeauty_1</a>. “Style inspiration” photos are stock references.</p>
+    <p class="credit-note">Every photo is a real client of Ruffine’s. See more on <a href="{{ $instagram }}" target="_blank" rel="noopener">@charlottebeauty_1</a>.</p>
 </section>
 
 <section class="about" id="about">

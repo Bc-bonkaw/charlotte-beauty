@@ -4,7 +4,7 @@ Every service photo has had its background removed (rembg, `birefnet-portrait` m
 
 ## Ruffine's work (from @charlottebeauty_1)
 
-These are real clients, taken from https://www.instagram.com/charlottebeauty_1/ and labelled "Ruffine's work" on the site.
+These are real clients, taken from https://www.instagram.com/charlottebeauty_1/ and labelled "Ruffine's work" on the site. The site uses no stock photos.
 
 | Local file | Instagram post | Caption on the post |
 | --- | --- | --- |
@@ -15,20 +15,12 @@ These are real clients, taken from https://www.instagram.com/charlottebeauty_1/ 
 | services/french-curl-braids.jpg | https://www.instagram.com/p/C7AietgPmiE/ | Black French Curl Braids |
 | services/boho-braids.jpg | https://www.instagram.com/p/C9Wco-qNIj8/ | Black Boho Braids |
 | services/senegalese-twists.jpg | https://www.instagram.com/p/CcExn1ILuwu/ | twist |
-| services/fulani-braids.jpg | https://www.instagram.com/p/C7AiL_ePPNp/ | (no caption — tribal/Fulani pattern, confirm with Ruffine) |
+| services/fulani-braids.jpg | https://www.instagram.com/p/C7AiL_ePPNp/ | (no caption — Fulani braids, confirmed by the salon) |
 | services/cornrows.jpg | https://www.instagram.com/p/Bx-3GkPh3-N/ | Micro cornrows |
 
-## Style inspiration (stock)
+## Services without a photo
 
-No matching Instagram post yet, so these remain Pexels photos (https://www.pexels.com/license/), labelled "Style inspiration" on the site. Replace them with Ruffine's own photos when available.
-
-| Local file | Pexels source |
-| --- | --- |
-| services/faux-locs.jpg | https://www.pexels.com/photo/17542285/ |
-| services/sew-in-weave.jpg | https://www.pexels.com/photo/6923450/ |
-| services/crochet-braids.jpg | https://www.pexels.com/photo/20853654/ |
-| services/jumbo-knotless.jpg | https://www.pexels.com/photo/17230682/ |
-| services/boho-locs.jpg | https://www.pexels.com/photo/18909777/ |
+Faux Locs, Sew-In Weave, Crochet Braids, Jumbo Knotless and Boho Locs show the CB monogram with "Photos coming soon" until Ruffine has her own photos of them. To add one, cut it out and save it to `public/images/services/<name>.jpg`, then set `'image'` for that service in `resources/views/welcome.blade.php`.
 
 ## Logo
 
