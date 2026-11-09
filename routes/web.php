@@ -24,9 +24,6 @@ Route::get('/sitemap.xml', function () {
         ->header('Content-Type', 'application/xml');
 });
 
-Route::get('/robots.txt', function () {
-    return response("User-agent: *\nAllow: /\n\nSitemap: ".url('/sitemap.xml')."\n")->header('Content-Type', 'text/plain');
-});
 
 Route::post('/booking-request', function (Request $request) {
     $validated = $request->validate(['name'=>['required','string','max:100'],'contact'=>['required','string','max:150'],'location'=>['required',Rule::in(array_keys(config('salon.locations')))],'service'=>['required','string','max:150'],'date'=>['required','date','after_or_equal:today'],'notes'=>['nullable','string','max:1000']], ['location.required'=>'Please choose a location.','location.in'=>'Please choose a location.']);

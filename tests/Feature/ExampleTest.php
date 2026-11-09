@@ -38,7 +38,7 @@ class ExampleTest extends TestCase
     public function test_search_engines_can_discover_every_page(): void
     {
         $this->get('/sitemap.xml')->assertOk()->assertSee(url('/hair-braiding-tracy'))->assertSee(url('/hair-braiding-hayward'));
-        $this->get('/robots.txt')->assertOk()->assertSee('Sitemap: '.url('/sitemap.xml'));
+        $this->assertStringContainsString('Sitemap: https://charlotte-beauty-braids.com/sitemap.xml', file_get_contents(public_path('robots.txt')));
     }
 
     public function test_an_appointment_is_saved_and_emailed(): void
