@@ -9,6 +9,7 @@ class BookingRequest extends Model
     protected $fillable = [
         'name',
         'contact',
+        'location',
         'service',
         'preferred_date',
         'notes',

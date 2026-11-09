@@ -27,6 +27,7 @@ class AppointmentRequestReceived extends Notification
             ->greeting('New Charlotte Beauty Braids appointment request')
             ->line('Client: '.$this->booking->name)
             ->line('Phone or email: '.$this->booking->contact)
+            ->line('Location: '.(config('salon.locations.'.$this->booking->location.'.name') ?? 'Not specified'))
             ->line('Requested style: '.$this->booking->service)
             ->line('Preferred date: '.$this->booking->preferred_date->format('F j, Y'))
             ->line('Notes: '.($this->booking->notes ?: 'None provided'))

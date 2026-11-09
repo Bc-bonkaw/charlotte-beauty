@@ -1,5 +1,10 @@
 @php
-    $booksy = 'https://booksy.com/en-us/1205345_charlotte-beauty-braids_braids-locs_119449_hayward#ba_s=seo';
+    $locations = config('salon.locations');
+    $here = $city ? $locations[$city] : null;
+    $place = $here ? $here['name'] : 'Hayward & Tracy';
+    $pageTitle = 'Hair Braiding in '.$place.', CA | Charlotte Beauty Braids';
+    $pageDescription = 'Hair braiding in '.($here ? $here['name'] : 'Hayward and Tracy').', CA by Ruffine Bonkaw. Knotless braids, box braids, twists, locs and cornrows from $170. Rated 5.0. Book online.';
+    $canonical = $city ? route('location', $city) : route('home');
     $instagram = 'https://www.instagram.com/charlottebeauty_1/';
     // 'image' => null shows the branded monogram until Ruffine has a photo of that style.
     $services = [
@@ -16,20 +21,36 @@
         ['name' => 'Jumbo Knotless · Waist', 'category' => 'braids', 'price' => '$250', 'time' => '2 hr 30 min', 'notes' => ['No hair included', 'Waist length'], 'image' => null],
         ['name' => 'Boho Locs', 'category' => 'twists', 'price' => '$500', 'time' => '4 hr 30 min', 'notes' => ['Hair included', 'Soft textured finish'], 'image' => null],
     ];
+    $schema = array_values(array_map(fn ($location) => [
+        '@context' => 'https://schema.org',
+        '@type' => 'HairSalon',
+        'name' => 'Charlotte Beauty Braids',
+        'url' => route('location', strtolower($location['name'])),
+        'image' => asset('images/hero.jpg'),
+        'logo' => asset('images/logo.png'),
+        'telephone' => config('salon.phone'),
+        'priceRange' => '$170-$500',
+        'address' => ['@type' => 'PostalAddress', 'streetAddress' => $location['street'], 'addressLocality' => $location['locality'], 'addressRegion' => 'CA', 'postalCode' => $location['zip'], 'addressCountry' => 'US'],
+        'areaServed' => [$location['locality'], ...$location['nearby']],
+        'sameAs' => [$instagram, $location['booksy']],
+        'makesOffer' => array_map(fn ($s) => ['@type' => 'Offer', 'itemOffered' => ['@type' => 'Service', 'name' => $s['name']], 'priceSpecification' => ['@type' => 'PriceSpecification', 'minPrice' => (int) ltrim($s['price'], '$'), 'priceCurrency' => 'USD']], $services),
+    ], $here ? [$here] : $locations));
 @endphp
 <!doctype html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Charlotte Beauty Braids | Hayward, CA</title>
-<meta name="description" content="Charlotte Beauty Braids in Hayward — braids, twists, locs, cornrows and sew-ins by Ruffine Bonkaw.">
+<title>{{ $pageTitle }}</title>
+<link rel="canonical" href="{{ $canonical }}">
+<meta name="description" content="{{ $pageDescription }}">
 <meta name="theme-color" content="#3d2130">
 <meta property="og:type" content="website">
-<meta property="og:title" content="Charlotte Beauty Braids | Hayward, CA">
-<meta property="og:description" content="Protective styles with a polished finish — braids, twists, locs and cornrows by Ruffine Bonkaw.">
+<meta property="og:title" content="{{ $pageTitle }}">
+<meta property="og:description" content="{{ $pageDescription }}">
 <meta property="og:image" content="{{ asset('images/hero.jpg') }}">
-<meta property="og:url" content="{{ url('/') }}">
+<meta property="og:url" content="{{ $canonical }}">
+<script type="application/ld+json">{!! json_encode($schema, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_HEX_TAG) !!}</script>
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="{{ asset('favicon.ico') }}" sizes="any">
 <link rel="apple-touch-icon" href="{{ asset('apple-touch-icon.png') }}">
@@ -67,8 +88,15 @@ h1,h2,h3{font-family:'Playfair Display',serif;margin-top:0}
 /* Hero */
 .hero{display:grid;grid-template-columns:1.15fr .85fr;background:var(--card);border-bottom:1px solid var(--line)}
 .hero-copy{padding:80px 6vw 64px;align-self:center}
-h1{font-size:clamp(46px,6.4vw,90px);line-height:.95;margin:18px 0 24px}
-h1 em{font-style:normal;color:var(--rose)}
+h1.kicker{font-family:'Libre Franklin',sans-serif;font-size:13px;margin:0}
+.hero-copy .tagline{font-family:'Playfair Display',serif;font-weight:700;font-size:clamp(46px,6.4vw,90px);line-height:.95;margin:18px 0 24px;color:var(--ink);max-width:none}
+.tagline em{font-style:normal;color:var(--rose)}
+.local{padding:64px 24px 0}
+.local-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:18px}
+.local-card{background:var(--card);border:1px solid var(--line);padding:30px}
+.local-card h2{font-size:clamp(28px,3vw,36px);margin-bottom:12px}
+.local-card p{margin:0 0 12px;color:var(--muted)}
+.local-card a{color:var(--rose);font-weight:600}
 .hero-copy p{font-size:17px;max-width:560px;color:var(--muted)}
 .hero-actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:32px}
 .hero-image{position:relative;background:linear-gradient(180deg,var(--paper),var(--blush));min-height:520px;overflow:hidden}
@@ -138,8 +166,18 @@ h1 em{font-style:normal;color:var(--rose)}
 .booking-info{background:var(--blush);padding:52px}
 .booking-info h2{font-size:clamp(34px,4vw,44px);line-height:1.05;margin:14px 0 20px}
 .booking-info .btn{margin-top:8px}
-.address{margin:26px 0 6px;font-weight:700}
-.directions{color:var(--rose);font-weight:600}
+.location{border-top:1px solid #d9b9c4;padding:20px 0}
+.location h3{font-size:24px;margin:0 0 4px}
+.address{margin:0 0 12px;font-weight:600}
+.booking-info .location .btn{margin:0 14px 0 0}
+.directions{color:var(--rose);font-weight:600;white-space:nowrap}
+.location-choice{border:0;padding:0;margin:0}
+.location-choice legend{padding:0;margin-bottom:7px;font-size:10px;letter-spacing:.1em;text-transform:uppercase;font-weight:700}
+.location-options{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.location-option{display:flex;gap:10px;align-items:flex-start;border:1px solid #cdb3bc;background:#fff;padding:14px;cursor:pointer;letter-spacing:0;text-transform:none;font-size:14px;font-weight:400}
+.location-option:has(input:checked){border-color:var(--rose);outline:1px solid var(--rose);background:var(--paper)}
+.location-option input{width:auto;margin-top:3px;accent-color:var(--rose)}
+.location-option strong,.location-option small{display:block}
 .form{padding:44px;display:grid;grid-template-columns:1fr 1fr;gap:16px;align-content:start}
 .field{display:flex;flex-direction:column;gap:7px}
 .full{grid-column:1/-1}
@@ -159,7 +197,9 @@ textarea{min-height:96px;resize:vertical}
 .footer-links{display:flex;gap:20px;flex-wrap:wrap}
 .footer-links a{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#f0d8e0}
 .footer-links a:hover{color:#fff}
-.footer address{font-style:normal;color:#e6d4da;text-align:right}
+.footer-addresses{display:flex;gap:36px}
+.footer address{font-style:normal;color:#e6d4da}
+.footer address strong{color:#fff}
 .footer-bottom{border-top:1px solid #5d3a4b;margin-top:32px;padding-top:18px;font-size:12px;color:#c9aab5}
 .hidden{display:none!important}
 
@@ -174,7 +214,6 @@ textarea{min-height:96px;resize:vertical}
     .services,.reviews{grid-template-columns:1fr 1fr}
     .section{padding:60px 18px}
     .footer-inner{grid-template-columns:1fr}
-    .footer address{text-align:left}
 }
 @media(max-width:600px){
     .topbar{padding-left:14px}
@@ -183,7 +222,7 @@ textarea{min-height:96px;resize:vertical}
     .utility .city,.utility-links .ig{display:none}
     .hero-copy{padding:52px 20px 44px}
     .hero-image{min-height:420px}
-    .services,.reviews,.form{grid-template-columns:1fr}
+    .services,.reviews,.form,.location-options{grid-template-columns:1fr}
     .section-head{display:block}
     .section-head p{margin-top:10px}
     .about-copy,.booking-info,.form{padding:36px 22px}
@@ -192,19 +231,19 @@ textarea{min-height:96px;resize:vertical}
 </head>
 <body>
 <header class="topbar">
-    <a class="logo" href="#top" aria-label="Charlotte Beauty Braids home"><img src="{{ asset('images/logo-light.png') }}" alt="Charlotte Beauty Braids" width="57" height="56"></a>
+    <a class="logo" href="{{ route('home') }}" aria-label="Charlotte Beauty Braids home"><img src="{{ asset('images/logo-light.png') }}" alt="Charlotte Beauty Braids" width="57" height="56"></a>
     <button class="menu" aria-label="Open menu" aria-expanded="false" aria-controls="site-nav">☰</button>
     <nav class="nav" id="site-nav">
-        <a href="#top">Home</a>
+        <a href="{{ route('home') }}">Home</a>
         <a href="#services">Services</a>
         <a href="#about">About</a>
         <a href="#reviews">Reviews</a>
         <a href="#visit">Visit</a>
-        <a class="book-nav" href="{{ $booksy }}" target="_blank" rel="noopener">Book now</a>
+        <a class="book-nav" href="#booking">Book now</a>
     </nav>
 </header>
 <div class="utility">
-    <span class="city">Hayward, California</span>
+    <span class="city">Hayward &amp; Tracy, California</span>
     <span class="utility-links">
         <a href="tel:+15105387311">(510) 538-7311</a>
         <a class="ig" href="{{ $instagram }}" target="_blank" rel="noopener">Instagram</a>
@@ -215,11 +254,11 @@ textarea{min-height:96px;resize:vertical}
 <main id="top">
 <section class="hero">
     <div class="hero-copy">
-        <span class="kicker">Charlotte Beauty Braids · Hayward</span>
-        <h1>Protective styles. <em>Polished finish.</em></h1>
+        <h1 class="kicker">Hair braiding in {{ $place }}, CA</h1>
+        <p class="tagline">Protective styles. <em>Polished finish.</em></p>
         <p>Custom braids, twists, locs and cornrows by Ruffine Bonkaw. Designed with care and finished for confidence.</p>
         <div class="hero-actions">
-            <a class="btn dark" href="{{ $booksy }}" target="_blank" rel="noopener">Book on Booksy</a>
+            <a class="btn dark" href="#booking">Choose a location</a>
             <a class="btn" href="#services">See styles &amp; prices</a>
         </div>
     </div>
@@ -227,6 +266,19 @@ textarea{min-height:96px;resize:vertical}
         <img src="{{ asset('images/hero.jpg') }}" alt="Long blonde curly twists by Ruffine" fetchpriority="high">
         <figcaption>Styled by Ruffine</figcaption>
     </figure>
+</section>
+
+<section class="local" aria-label="Locations">
+    <div class="local-grid">
+        @foreach ($here ? [$city => $here] : $locations as $key => $location)
+            <article class="local-card">
+                <h2>Hair Braiding in {{ $location['name'] }}, CA</h2>
+                <p>{{ $location['intro'] }}</p>
+                <p>{{ $location['street'] }}, {{ $location['city'] }}. Serving {{ $location['name'] }}, {{ implode(', ', $location['nearby']) }} and nearby.</p>
+                @if ($here)<a href="#booking">Book in {{ $location['name'] }} →</a>@else<a href="{{ route('location', $key) }}">Braiding in {{ $location['name'] }} →</a>@endif
+            </article>
+        @endforeach
+    </div>
 </section>
 
 <section class="section" id="services">
@@ -246,7 +298,7 @@ textarea{min-height:96px;resize:vertical}
             <article class="service {{ $i > 5 ? 'extra hidden' : '' }}" data-category="{{ $s['category'] }}">
                 @if ($s['image'])
                     <div class="service-photo">
-                        <img src="{{ asset('images/services/'.$s['image']) }}" alt="{{ $s['name'] }} styled by Ruffine" loading="lazy" width="900" height="1125">
+                        <img src="{{ asset('images/services/'.$s['image']) }}" alt="{{ $s['name'] }} by Ruffine, hair braiding in {{ $place }}" loading="lazy" width="900" height="1125">
                         <span class="tag">Ruffine's work</span>
                     </div>
                 @else
@@ -273,7 +325,7 @@ textarea{min-height:96px;resize:vertical}
     <div class="about-copy">
         <span class="kicker">About the studio</span>
         <h2>Braiding is care, craft, and confidence.</h2>
-        <p>Charlotte Beauty Braids is a welcoming Hayward studio known for fast, polished work and a friendly atmosphere. Ruffine brings years of experience and an eye for detail to every appointment.</p>
+        <p>Charlotte Beauty Braids is a welcoming studio with locations in Hayward and Tracy, known for fast, polished work and a friendly atmosphere. Ruffine brings years of experience and an eye for detail to every appointment.</p>
         <div class="stats">
             <div><strong>5.0</strong><span>Rating</span></div>
             <div><strong>23</strong><span>Reviews</span></div>
@@ -297,15 +349,29 @@ textarea{min-height:96px;resize:vertical}
         <div class="booking-info" id="visit">
             <span class="kicker">Book your visit</span>
             <h2>Request an appointment.</h2>
-            <p>The fastest way to book is Booksy. Prefer to ask first? Send a request and we’ll follow up to confirm availability and deposit details.</p>
-            <a class="btn dark" href="{{ $booksy }}" target="_blank" rel="noopener">Book on Booksy</a>
-            <p class="address">762 A St<br>Hayward, CA 94541</p>
-            <a class="directions" href="https://www.google.com/maps/search/?api=1&query=762+A+St+Hayward+CA+94541" target="_blank" rel="noopener">Get directions →</a>
+            <p>Pick the location closest to you. Send a request and we’ll follow up to confirm availability and deposit details.</p>
+            @foreach ($locations as $key => $location)
+                <div class="location">
+                    <h3>{{ $location['name'] }}</h3>
+                    <p class="address">{{ $location['street'] }}<br>{{ $location['city'] }}</p>
+                    @if ($location['booksy'])<a class="btn dark" href="{{ $location['booksy'] }}" target="_blank" rel="noopener">Book on Booksy</a>@else<a class="btn dark" href="#booking-form" data-location="{{ $key }}">Request {{ $location['name'] }}</a>@endif
+                    <a class="directions" href="{{ $location['maps'] }}" target="_blank" rel="noopener">Get directions →</a>
+                </div>
+            @endforeach
         </div>
-        <form class="form" method="post" action="{{ route('booking.store') }}">
+        <form class="form" id="booking-form" method="post" action="{{ route('booking.store') }}">
             @csrf
             @if (session('success'))<div class="flash" role="status">{{ session('success') }}</div>@endif
             @if ($errors->any())<div class="flash error" role="alert">Please check the highlighted fields and try again.</div>@endif
+            <fieldset class="field full location-choice">
+                <legend>Location</legend>
+                <div class="location-options">
+                    @foreach ($locations as $key => $location)
+                        <label class="location-option"><input type="radio" name="location" value="{{ $key }}" required @checked(old('location', $city) === $key)><span><strong>{{ $location['name'] }}</strong><small>{{ $location['street'] }}, {{ $location['city'] }}</small></span></label>
+                    @endforeach
+                </div>
+                @error('location')<span class="field-error">{{ $message }}</span>@enderror
+            </fieldset>
             <div class="field">
                 <label for="name">Your name</label>
                 <input id="name" name="name" required maxlength="100" autocomplete="name" value="{{ old('name') }}">
@@ -350,11 +416,11 @@ textarea{min-height:96px;resize:vertical}
         <nav class="footer-links" aria-label="Contact">
             <a href="tel:+15105387311">Call (510) 538-7311</a>
             <a href="{{ $instagram }}" target="_blank" rel="noopener">Instagram</a>
-            <a href="{{ $booksy }}" target="_blank" rel="noopener">Book on Booksy</a>
+            <a href="#booking">Book an appointment</a>
         </nav>
-        <address>762 A St<br>Hayward, CA 94541</address>
+        <div class="footer-addresses">@foreach ($locations as $key => $location)<address><a href="{{ route('location', $key) }}"><strong>{{ $location['name'] }}</strong></a><br>{{ $location['street'] }}<br>{{ $location['city'] }}</address>@endforeach</div>
     </div>
-    <div class="footer-bottom">© {{ date('Y') }} Charlotte Beauty Braids · Protective styles in Hayward, California</div>
+    <div class="footer-bottom">© {{ date('Y') }} Charlotte Beauty Braids · Protective styles in Hayward and Tracy, California</div>
 </footer>
 
 <script>
@@ -369,6 +435,7 @@ filters.forEach(b => b.onclick = () => {
     more.classList.add('hidden');
 });
 more.onclick = () => { document.querySelectorAll('.extra').forEach(c => c.classList.remove('hidden')); more.classList.add('hidden'); };
+document.querySelectorAll('[data-location]').forEach(a => a.addEventListener('click', () => document.querySelector(`input[name="location"][value="${a.dataset.location}"]`).checked = true));
 document.querySelectorAll('[data-service]').forEach(a => a.onclick = () => document.querySelector('#service').value = a.dataset.service);
 </script>
 </body>
