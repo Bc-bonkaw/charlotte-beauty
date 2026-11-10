@@ -8,13 +8,13 @@ return [
     'locations' => [
         'hayward' => [
             'name' => 'Hayward',
-            'street' => '762 A St',
+            'street' => '22210 Mission Blvd',
             'city' => 'Hayward, CA 94541',
             'locality' => 'Hayward',
             'zip' => '94541',
             'nearby' => ['San Lorenzo', 'Castro Valley', 'San Leandro', 'Union City'],
-            'intro' => 'Looking for hair braiding in Hayward? Ruffine creates knotless braids, box braids, Senegalese twists, cornrows and more at our A Street studio, a short drive from across the East Bay.',
-            'maps' => 'https://www.google.com/maps/search/?api=1&query=762+A+St+Hayward+CA+94541',
+            'intro' => 'Looking for hair braiding in Hayward? Ruffine creates knotless braids, box braids, Senegalese twists, cornrows and more at our Mission Boulevard studio, a short drive from across the East Bay.',
+            'maps' => 'https://www.google.com/maps/search/?api=1&query=22210+Mission+Blvd+Hayward+CA+94541',
             'booksy' => 'https://booksy.com/en-us/1205345_charlotte-beauty-braids_braids-locs_119449_hayward#ba_s=seo',
         ],
         'tracy' => [
